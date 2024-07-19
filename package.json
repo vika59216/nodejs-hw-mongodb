@@ -17,7 +17,7 @@
   "type": "module",
   "scripts": {
 
-    "dev": "nodemon srs/index.js",
+    "dev": "nodemon src/index.js",
     "start": "node src/index.js"
   },
   "keywords": [],
