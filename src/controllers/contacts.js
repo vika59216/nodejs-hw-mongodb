@@ -17,7 +17,7 @@ export const getContactByIdController = async (req, res, next) => {
  const { contactId } = req.params;
 
  // Відповідь, якщо контакт не знайдено
- if (!contact) {
+ if (!mongoose.Types.ObjectId.isValid(contactId)) {
  res.status(404).json({
 	message: 'Contact not found'
 });
