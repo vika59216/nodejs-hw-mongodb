@@ -1,4 +1,4 @@
-
+import mongoose from 'mongoose';
 import { getAllContacts, getContactById, createContact} from '../services/contacts.js';
 import createHttpError from 'http-errors';
 import { deleteContact } from "../services/contacts.js";
@@ -39,34 +39,39 @@ return;
 
 
 export const createContactController = async (req, res) => {
-    const { name, phoneNumber, email, isFavourite, contactType } = req.body;
-    // Перевірка обов'язкових полів
-    if (!name || !phoneNumber || !contactType) {
-        return res.status(400).json({
-            status: 400,
-            message: "Name, phoneNumber, and contactType are required fields."
-        });
-    }
-    
-    try {
-        // Виклик сервісу для створення контакту
-        const newContact = await contactsService.createContact({ name, phoneNumber, email, isFavourite, contactType });
-        
-        res.status(201).json({
-            status: 201,
-            message: "Successfully created a contact!",
-            data: newContact
-        });
-    } catch (error) {
-        res.status(500).json({
-            status: 500,
-            message: "Error creating contact",
-            error: error.message
-        });
-    }
-};
-    
+  // const { name, phoneNumber, email, isFavourite, contactType } = req.body;
+  // if (!name || !phoneNumber) {
+  //   return res.status(400).json({
+  //     status: 400,
+  //     message: 'Name and phone number are required!',
+  //   });
+  // }
+  // const сontact = await createContact({
+  //   name,
+  //   phoneNumber,
+  //   email,
+  //   isFavourite,
+  //   contactType,
+  // });
+  // res.status(201).json({
+  //   status: 201,
+  //   message: 'Successfully created a contact!',
+  //   data: сontact,
+  // });
+  if (!req.body.name || !req.body.email) {
+    return res.status(400).json({
+      status: 400,
+      message: 'Name and email are required fields.',
+    });
+  }
+  const contact = await createContact(req.body);
 
+  res.status(201).json({
+    status: 201,
+    message: `Successfully created a contact!`,
+    data: contact,
+  });
+};
 
 
 
