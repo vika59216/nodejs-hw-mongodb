@@ -58,7 +58,7 @@ export const createContactController = async (req, res) => {
   //   message: 'Successfully created a contact!',
   //   data: сontact,
   // });
-  if (!req.body.name || !req.body.email) {
+  if (!req.body.name || !req.body.phoneNumber || !req.body.contactType) {
     return res.status(400).json({
       status: 400,
       message: 'Name and email are required fields.',
