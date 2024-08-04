@@ -21,12 +21,13 @@ export const getContactsController = async (req, res) => {
     filter,
   });
 
-  res.json({
-    status: 200,
-    message: 'Successfully found students!',
+  res.status(200).json({
+    status: res.statusCode,
+    message: 'Successfully found contacts!',
     data: contacts,
   });
 };
+
 
 
 

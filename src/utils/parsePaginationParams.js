@@ -5,7 +5,7 @@ const parseNumber = (number, defaultValue) => {
   if (!isString) return defaultValue;
 
   const parsedNumber = parseInt(number);
-  if (Number.isNaN(parsedNumber)) {
+  if (Number.isNaN(parsedNumber)  || parsedNumber < 0)  {
     return defaultValue;
   }
 

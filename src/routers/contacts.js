@@ -34,12 +34,14 @@ router.delete('/contacts/:contactId', ctrlWrapper(deleteContactController));
 router.put(
   '/contact/:contactId',
   validateBody(createContactSchema),
+   validateMongoId('contactId'),
   ctrlWrapper(upsertContactController),
 );
 
 router.patch(
   '/contacts/:contactId',
   validateBody(updateContactSchema),
+  validateMongoId('contactId'),
   ctrlWrapper(patchContactController),
 );
 
