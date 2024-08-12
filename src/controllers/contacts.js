@@ -13,10 +13,10 @@ export const getContactsController = async (req, res) => {
   const { sortBy, sortOrder } = parseSortParams(req.query);
   const filter = parseFilterParams(req.query);
 
-  const personId = req.user._id;
+  const userId = req.user._id;
 
   const contacts = await getAllContacts({
-     personId,
+     userId,
     page,
     perPage,
     sortBy,
@@ -36,7 +36,7 @@ export const getContactsController = async (req, res) => {
 
 export const getContactByIdController = async (req, res, next) => {
  const { contactId } = req.params;
-const personId = req.user._id;
+const userId = req.user._id;
  // Відповідь, якщо контакт не знайдено
  if (!mongoose.Types.ObjectId.isValid(contactId)) {
  res.status(404).json({
@@ -44,7 +44,7 @@ const personId = req.user._id;
 });
 return;
     }
-    const contact = await getContactById(contactId,personId);
+    const contact = await getContactById(contactId,userId);
   if (!contact) {
     next(createHttpError(404, `Contact with id ${contactId} not found!`));
     return;
@@ -60,14 +60,14 @@ return;
 
 
 export const createContactController = async (req, res) => {
-const personId = req.user._id;
+const userId = req.user._id;
   if (!req.body.name || !req.body.phoneNumber || !req.body.contactType) {
     return res.status(400).json({
       status: 400,
       message: 'Name and email are required fields.',
     });
   }
-  const contact = await createContact(req.body, personId);
+  const contact = await createContact(req.body, userId);
 
   res.status(201).json({
     status: 201,
@@ -80,8 +80,8 @@ const personId = req.user._id;
 
 export const deleteContactController = async (req, res, next) => {
   const { contactId } = req.params;
-    const personId = req.user._id;
-    const contact = await deleteContact(contactId,personId);
+    const userId = req.user._id;
+    const contact = await deleteContact(contactId,userId);
 
   if (!contact) {
     next(createHttpError(404, 'Contact not found'));
@@ -92,8 +92,8 @@ export const deleteContactController = async (req, res, next) => {
 };
 export const upsertContactController = async (req, res, next) => {
   const { contactId } = req.params;
-  const personId = req.user._id;
-  const result = await updateContact(contactId, req.body, personId,{
+  const userId = req.user._id;
+  const result = await updateContact(contactId, req.body, userId,{
     upsert: true,
   });
 
@@ -113,8 +113,8 @@ export const upsertContactController = async (req, res, next) => {
 
 export const patchContactController = async (req, res, next) => {
   const { contactId } = req.params;
-    const personId = req.user._id;
-  const result = await updateContact(contactId, personId, req.body);
+    const userId = req.user._id;
+  const result = await updateContact(contactId, userId, req.body);
 
   if (!result) {
     next(createHttpError(404, 'Contact not found'));
