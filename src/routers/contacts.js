@@ -35,7 +35,7 @@ router.post(
 router.delete('/:contactId', ctrlWrapper(deleteContactController));
 router.put(
   '/:contactId',
-  validateBody(createContactSchema),
+  validateBody(updateContactSchema),
    validateMongoId('contactId'),
   ctrlWrapper(upsertContactController),
 );

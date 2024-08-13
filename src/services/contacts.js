@@ -62,11 +62,11 @@ export const getAllContacts = async ({
 };*/
 
 export const getContactById = async (contactId, userId) => {
-  const contact = await Contact.findById( _id, contactId, userId );
+  const contact = await Contact.findOne( _id, contactId, userId );
   return contact;
 };
 export const createContact = async (payload,userId) => {
-  const contact = await Contact.create(payload,userId);
+  const contact = await Contact.create( ...payload, userId);
   return contact;
 };
 export const deleteContact = async (contactId, userId) => {
