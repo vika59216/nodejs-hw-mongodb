@@ -30,6 +30,7 @@ router.get(
 );
 router.post(
   '/',
+    upload.single('photo'),
   validateBody(createContactSchema),
   ctrlWrapper(createContactController),
 );
@@ -42,42 +43,16 @@ router.put(
   ctrlWrapper(upsertContactController),
 );
 
+
+
+
+
 router.patch(
   '/:contactId',
+
   upload.single('photo'),
   validateBody(updateContactSchema),
   validateMongoId('contactId'),
-  ctrlWrapper(patchContactController),
-);
-
-
-
-
-
-router.post(
-  '/',
-  checkRoles(ROLES.TEACHER),
-  isValidId,
-  upload.single('photo'), // додаємо цю middleware
-  validateBody(createContactSchema),
-  ctrlWrapper(createContactController),
-);
-
-router.put(
-  '/:contactId',
-  checkRoles(ROLES.TEACHER),
-  isValidId,
-  upload.single('photo'), // додаємо цю middleware
-  validateBody(createContactSchema),
-  ctrlWrapper(upsertContactController),
-);
-
-router.patch(
-  '/:contactId',
-  checkRoles(ROLES.TEACHER, ROLES.PARENT),
-  isValidId,
-  upload.single('photo'), // додаємо цю middleware
-  validateBody(updateContactSchema),
   ctrlWrapper(patchContactController),
 );
 
