@@ -39,6 +39,11 @@ router.post(
   ctrlWrapper(requestResetEmailController),
 );
 
+router.post(
+  '/send-reset-email',
+  validateBody(requestResetEmailSchema),
+  ctrlWrapper(requestResetEmailController),
+);
 
 router.post(
   '/reset-pwd',
