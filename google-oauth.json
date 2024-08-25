@@ -1,1 +1,6 @@
-{"web":{"client_id":"37976970007-r2nr6kfh42ob8dipmdk6ovcn0o0a8c8b.apps.googleusercontent.com","project_id":"contacts-app-433518","auth_uri":"https://accounts.google.com/o/oauth2/auth","token_uri":"https://oauth2.googleapis.com/token","auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs","client_secret":"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","redirect_uris":["http://localhost:3000/confirm-google-auth"]}}
+{"web":
+{
+"project_id":"contacts-app-433518","auth_uri":"https://accounts.google.com/o/oauth2/auth",
+"token_uri":"https://oauth2.googleapis.com/token",
+"auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs",
+"redirect_uris":["http://localhost:3000/confirm-google-auth"]}}
