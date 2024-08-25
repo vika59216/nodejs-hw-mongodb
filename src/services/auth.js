@@ -188,6 +188,9 @@ export const loginOrSignupWithGoogle = async (code) => {
     });
   }
 
+
+
+  
   const newSession = createSession();
 
   return await SessionsCollection.create({
