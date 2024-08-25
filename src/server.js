@@ -8,6 +8,7 @@ import { UPLOAD_DIR } from './constants/index.js';
 
 import router from './routers/index.js';
 import cookieParser from 'cookie-parser';
+import { swaggerDocs } from './middlewares/swaggerDocs.js';
 
 
 
@@ -25,6 +26,8 @@ export const setupServer = () => {
   );
 
   app.use('/uploads', express.static(UPLOAD_DIR));
+    app.use('/api-docs', swaggerDocs());
+  
 
   app.use(cors());
 
