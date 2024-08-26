@@ -64,14 +64,30 @@ return;
 
 export const createContactController = async (req, res) => {
  
-const userId = req.user._id;
+  const userId = req.user._id;
+  const photo = req.file;
+  let photoUrl = '';
   if (!req.body.name || !req.body.phoneNumber || !req.body.contactType) {
     return res.status(400).json({
       status: 400,
       message: 'Name and email are required fields.',
     });
   }
-  const contact = await createContact(req.body, userId);
+
+    if (photo) {
+    if (env('ENABLE_CLOUDINARY') === 'true') {
+      photoUrl = await saveFileToCloudinary(photo);
+    } else {
+      photoUrl = await saveFileToUploadDir(photo);
+    }
+  }
+
+  const contactPayload = {
+    ...req.body,
+    photo: photoUrl,
+  };
+
+  const contact = await createContact(contactPayload, userId);
 
   res.status(201).json({
     status: 201,
@@ -79,7 +95,7 @@ const userId = req.user._id;
     data: contact,
   });
 };
-
+  
 
 
 export const deleteContactController = async (req, res, next) => {
